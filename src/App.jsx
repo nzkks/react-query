@@ -1,10 +1,12 @@
 import './App.css';
+import PostLists from './components/post-lists';
 
 function App() {
   return (
-    <>
-      <div>React Query</div>
-    </>
+    <div>
+      <h2 className="title">My Posts</h2>
+      <PostLists />
+    </div>
   );
 }
 
