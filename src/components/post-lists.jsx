@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addPost, fetchPosts, fetchTags } from '../api/api';
 
 const PostLists = () => {
@@ -17,7 +17,18 @@ const PostLists = () => {
     error: fetchTagsError
   } = useQuery({ queryKey: ['tags'], queryFn: fetchTags });
 
-  const { status: mutationStatus, mutate, error: mutationError } = useMutation({ mutationFn: addPost });
+  const queryClient = useQueryClient();
+
+  const {
+    status: mutationStatus,
+    mutate,
+    error: mutationError
+  } = useMutation({
+    mutationFn: addPost,
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries({ queryKey: ['posts'] });
+    }
+  });
 
   if (fetchPostsStatus === 'pending' || fetchTagsStatus === 'pending' || mutationStatus === 'pending') {
     return <p>Loading...</p>;
