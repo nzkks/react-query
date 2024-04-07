@@ -34,7 +34,7 @@ const PostForm = ({ postData, page }) => {
 
     if (!title || !tags.length) return;
 
-    mutate({ id: postData?.data?.length + 1, title, tags });
+    mutate({ title, tags });
 
     e.target.reset();
   };
