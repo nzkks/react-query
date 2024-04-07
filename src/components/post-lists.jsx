@@ -3,13 +3,17 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addPost, fetchPosts, fetchTags } from '../api/api';
 
 const PostLists = () => {
+  const page = 1;
+
   let errorMessages = [];
 
   const {
     status: fetchPostsStatus,
     data: postData,
     error: fetchPostsError
-  } = useQuery({ queryKey: ['posts'], queryFn: fetchPosts });
+  } = useQuery({ queryKey: ['posts', { page }], queryFn: () => fetchPosts(page) });
+  // If queryFn recieves out side variables as Parameters. useQuery needs to be informed of that change through adding the variables into queryKey options.
+
   // If auto refetching is needed every n seconds add refetchInterval in the useQuery
   // When a query's cache becomes unused or inactive, that cache data will be garbage collected after gcTime duration. Default value is Infinity which disables manual garbage collection and will automatically clear memory once a request has finished. If not Infinity, manual garbage collection is needed. Recommended lower value is not less than 2 seconds (1000 * 2)
 
@@ -57,7 +61,7 @@ const PostLists = () => {
 
     if (!title || !tags.length) return;
 
-    mutate({ id: postData.length + 1, title, tags });
+    mutate({ id: postData?.data?.length + 1, title, tags });
 
     e.target.reset();
   };
@@ -91,7 +95,7 @@ const PostLists = () => {
         </p>
       )}
 
-      {postData.map(post => (
+      {postData?.data?.map(post => (
         <div key={post.id} className="post">
           <div>{post.title}</div>
           {post.tags.map(tag => (

@@ -1,5 +1,5 @@
-const fetchPosts = async () => {
-  const response = await fetch('http://localhost:3000/posts?_sort=-id'); // _sort=-id means sorting the ids in reverse order
+const fetchPosts = async page => {
+  const response = await fetch(`http://localhost:3000/posts?_sort=-id&${page ? `_page=${page}&_per_page=5` : ''}`); // _sort=-id means sorting the ids in reverse order
 
   const postData = await response.json();
   return postData;
