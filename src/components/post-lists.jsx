@@ -9,7 +9,8 @@ const PostLists = () => {
     status: fetchPostsStatus,
     data: postData,
     error: fetchPostsError
-  } = useQuery({ queryKey: ['posts'], queryFn: fetchPosts });
+  } = useQuery({ queryKey: ['posts'], queryFn: fetchPosts, refetchInterval: 1000 * 5 });
+  // If auto refetching is needed every n seconds add refetchInterval in the useQuery
 
   const {
     status: fetchTagsStatus,
