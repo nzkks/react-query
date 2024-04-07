@@ -52,11 +52,13 @@ const PostLists = () => {
 
   return (
     <div className="container">
-      <div className="error">
-        {errorMessages.map((message, index) => (
-          <Fragment key={index}>{message}</Fragment>
-        ))}
-      </div>
+      {errorMessages.length > 0 && (
+        <div className="error">
+          {errorMessages.map((message, index) => (
+            <Fragment key={index}>{message}</Fragment>
+          ))}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Enter your post" className="postbox" name="title" />
