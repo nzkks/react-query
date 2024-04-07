@@ -9,7 +9,7 @@ const PostLists = () => {
     status: fetchPostsStatus,
     data: postData,
     error: fetchPostsError
-  } = useQuery({ queryKey: ['posts'], queryFn: fetchPosts, gcTime: 1000 * 2 });
+  } = useQuery({ queryKey: ['posts'], queryFn: fetchPosts });
   // If auto refetching is needed every n seconds add refetchInterval in the useQuery
   // When a query's cache becomes unused or inactive, that cache data will be garbage collected after gcTime duration. Default value is Infinity which disables manual garbage collection and will automatically clear memory once a request has finished. If not Infinity, manual garbage collection is needed. Recommended lower value is not less than 2 seconds (1000 * 2)
 
