@@ -96,10 +96,14 @@ const PostLists = () => {
       )}
 
       <div className="pages">
-        <button onClick={() => setPage(oldPage => Math.max(oldPage - 1, 0))}>Previous page</button>
+        <button onClick={() => setPage(oldPage => Math.max(oldPage - 1, 0))} disabled={!postData.prev}>
+          Previous page
+        </button>
         {/* Math.max takes the seconds parameter. 0 means if the first parameter value goes beyond (less than) 0, then it is set to 0. */}
         <div>{page}</div>
-        <button onClick={() => setPage(oldPage => oldPage + 1)}>Next page</button>
+        <button onClick={() => setPage(oldPage => oldPage + 1)} disabled={!postData.next}>
+          Next page
+        </button>
       </div>
 
       {postData?.data?.map(post => (
