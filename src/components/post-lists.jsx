@@ -1,8 +1,9 @@
+import { Fragment } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { addPost, fetchPosts, fetchTags } from '../api/api';
 
 const PostLists = () => {
-  let errorMessages = <div></div>;
+  let errorMessages = [];
 
   const {
     status: fetchPostsStatus,
@@ -23,15 +24,15 @@ const PostLists = () => {
   }
 
   if (fetchPostsStatus === 'error') {
-    errorMessages.append(`<p>Fetch Posts Error: ${fetchPostsError.message}</p>`);
+    errorMessages.push(`Fetch Posts Error: ${fetchPostsError.message}`);
   }
 
   if (fetchTagsStatus === 'error') {
-    errorMessages.append(`<p>Fetch Tags Error: ${fetchTagsError.message}</p>`);
+    errorMessages.push(`Fetch Tags Error: ${fetchTagsError.message}`);
   }
 
   if (mutationStatus === 'error') {
-    errorMessages.append(`<p>Mutation Error: ${mutationError.message}</p>`);
+    errorMessages.push(`Mutation Error: ${mutationError.message}`);
   }
 
   const handleSubmit = e => {
@@ -51,7 +52,11 @@ const PostLists = () => {
 
   return (
     <div className="container">
-      {errorMessages}
+      <div className="error">
+        {errorMessages.map((message, index) => (
+          <Fragment key={index}>{message}</Fragment>
+        ))}
+      </div>
 
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Enter your post" className="postbox" name="title" />
