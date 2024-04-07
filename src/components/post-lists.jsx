@@ -15,7 +15,10 @@ const PostLists = () => {
     status: fetchTagsStatus,
     data: tagsData,
     error: fetchTagsError
-  } = useQuery({ queryKey: ['tags'], queryFn: fetchTags });
+  } = useQuery({ queryKey: ['tags'], queryFn: fetchTags, staleTime: Infinity });
+  {
+    /* Since tags are not going to be mutated, setting the staleTime to Infinity will make it not refetching again. */
+  }
 
   const queryClient = useQueryClient();
 
