@@ -11,10 +11,13 @@ const PostLists = () => {
     status: fetchPostsStatus,
     data: postData,
     error: fetchPostsError
-  } = useQuery({ queryKey: ['posts', { page }], queryFn: () => fetchPosts(page) });
+  } = useQuery({ queryKey: ['posts', { page }], queryFn: () => fetchPosts(page), staleTime: 1000 * 60 * 5 });
   // If queryFn recieves out side variables as Parameters. useQuery needs to be informed of that change through adding the variables into queryKey options.
 
+  // Setting staleTime wil make sure the query will be executed during that time. During that specified time, data in the cache will be used.
+
   // If auto refetching is needed every n seconds add refetchInterval in the useQuery
+
   // When a query's cache becomes unused or inactive, that cache data will be garbage collected after gcTime duration. Default value is Infinity which disables manual garbage collection and will automatically clear memory once a request has finished. If not Infinity, manual garbage collection is needed. Recommended lower value is not less than 2 seconds (1000 * 2)
 
   const {
