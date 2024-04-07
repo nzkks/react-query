@@ -20,9 +20,9 @@ const PostLists = () => {
   const queryClient = useQueryClient();
 
   const {
-    status: mutationStatus,
+    status: postStatus,
     mutate,
-    error: mutationError
+    reset
   } = useMutation({
     mutationFn: addPost,
     onSuccess: (data, variables, context) => {
@@ -30,7 +30,7 @@ const PostLists = () => {
     }
   });
 
-  if (fetchPostsStatus === 'pending' || fetchTagsStatus === 'pending' || mutationStatus === 'pending') {
+  if (fetchPostsStatus === 'pending' || fetchTagsStatus === 'pending') {
     return <p>Loading...</p>;
   }
 
@@ -40,10 +40,6 @@ const PostLists = () => {
 
   if (fetchTagsStatus === 'error') {
     errorMessages.push(`Fetch Tags Error: ${fetchTagsError.message}`);
-  }
-
-  if (mutationStatus === 'error') {
-    errorMessages.push(`Mutation Error: ${mutationError.message}`);
   }
 
   const handleSubmit = e => {
@@ -83,6 +79,12 @@ const PostLists = () => {
         </div>
         <button type="submit">Post</button>
       </form>
+
+      {postStatus === 'error' && (
+        <p onClick={() => reset()} className="error">
+          Unable to post
+        </p>
+      )}
 
       {postData.map(post => (
         <div key={post.id} className="post">
