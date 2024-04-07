@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addPost, fetchPosts, fetchTags } from '../api/api';
+import Posts from './Posts';
 
 const PostLists = () => {
   const [page, setPage] = useState(1);
@@ -109,14 +110,7 @@ const PostLists = () => {
         </button>
       </div>
 
-      {postData?.data?.map(post => (
-        <div key={post.id} className="post">
-          <div>{post.title}</div>
-          {post.tags.map(tag => (
-            <span key={tag}>{tag}</span>
-          ))}
-        </div>
-      ))}
+      <Posts data={postData?.data} />
     </div>
   );
 };
