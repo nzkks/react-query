@@ -2,17 +2,26 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchPosts } from '../api/api';
 
 const PostLists = () => {
-  const { status, data: postData, error } = useQuery({ queryKey: ['posts'], queryFn: fetchPosts });
+  let errorMessages = <div></div>;
 
-  if (status === 'pending') {
+  const {
+    status: fetchPostsStatus,
+    data: postData,
+    error: fetchPostsError
+  } = useQuery({ queryKey: ['posts'], queryFn: fetchPosts });
+
+  if (fetchPostsStatus === 'pending') {
     return <p>Loading...</p>;
   }
-  if (status === 'error') {
-    return <p>Error: {error.message}</p>;
+
+  if (fetchPostsStatus === 'error') {
+    errorMessages.append(`<p>Fetch Posts Error: ${fetchPostsError.message}</p>`);
   }
 
   return (
     <div className="container">
+      {errorMessages}
+
       {postData.map(post => (
         <div key={post.id} className="post">
           <div>{post.title}</div>
