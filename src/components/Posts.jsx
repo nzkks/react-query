@@ -1,7 +1,7 @@
 const Posts = ({ data }) => {
   return (
     <>
-      {data?.map(post => (
+      {data.map(post => (
         <div key={post.id} className="post">
           <div>{post.title}</div>
           {post.tags.map(tag => (

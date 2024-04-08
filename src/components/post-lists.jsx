@@ -7,11 +7,13 @@ import PostForm from './PostForm';
 const PostLists = () => {
   const [page, setPage] = useState(1);
 
+  const postsQueryKey = ['posts', { page }];
+
   const {
     status: fetchPostsStatus,
     data: postData,
     error: fetchPostsError
-  } = useQuery({ queryKey: ['posts', { page }], queryFn: () => fetchPosts(page) });
+  } = useQuery({ queryKey: postsQueryKey, queryFn: () => fetchPosts(page) });
   // If queryFn recieves out side variables as Parameters. useQuery needs to be informed of that change through adding the variables into queryKey options.
 
   // Setting staleTime wil make sure the query will be executed during that time. During that specified time, data in the cache will be used.
@@ -30,7 +32,7 @@ const PostLists = () => {
 
   return (
     <div className="container">
-      <PostForm postData={postData} page={page} />
+      <PostForm postsQueryKey={postsQueryKey} />
 
       <div className="pages">
         <button onClick={() => setPage(oldPage => Math.max(oldPage - 1, 0))} disabled={!postData.prev}>

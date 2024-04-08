@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addPost, fetchTags } from '../api/api';
 
-const PostForm = ({ postData, page }) => {
+const PostForm = ({ postsQueryKey }) => {
   const {
     status: fetchTagsStatus,
     data: tagsData,
@@ -20,7 +20,7 @@ const PostForm = ({ postData, page }) => {
   } = useMutation({
     mutationFn: addPost,
     onSuccess: (data, variables, context) => {
-      queryClient.invalidateQueries({ queryKey: ['posts', { page }] });
+      queryClient.invalidateQueries({ queryKey: postsQueryKey });
     }
   });
 
