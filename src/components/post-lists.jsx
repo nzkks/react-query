@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchPosts } from '../api/api';
 import Posts from './Posts';
 import PostForm from './PostForm';
+import Pagination from './Pagination';
 
 const PostLists = () => {
   const [page, setPage] = useState(1);
@@ -34,16 +35,7 @@ const PostLists = () => {
     <div className="container">
       <PostForm postsQueryKey={postsQueryKey} />
 
-      <div className="pages">
-        <button onClick={() => setPage(oldPage => Math.max(oldPage - 1, 0))} disabled={!postData.prev}>
-          Previous page
-        </button>
-        {/* Math.max takes the seconds parameter. 0 means if the first parameter value goes beyond (less than) 0, then it is set to 0. */}
-        <div>{page}</div>
-        <button onClick={() => setPage(oldPage => oldPage + 1)} disabled={!postData.next}>
-          Next page
-        </button>
-      </div>
+      <Pagination data={postData} page={page} setPage={setPage} />
 
       <Posts data={postData?.data} />
     </div>
