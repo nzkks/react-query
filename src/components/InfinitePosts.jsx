@@ -25,21 +25,12 @@ const InfinitePosts = () => {
     });
 
   useEffect(() => {
-    if (inView && hasNextPage) {
+    if (inView) {
       fetchNextPage();
     }
-  }, [inView, fetchNextPage, hasNextPage]);
+  }, [inView, fetchNextPage]);
 
-  const content =
-    isSuccess &&
-    data.pages.map(page =>
-      page.data.map((post, i) => {
-        if (post.length === i + 1) {
-          return <Post ref={ref} key={post.id} post={post} />;
-        }
-        return <Post key={post.id} post={post} />;
-      })
-    );
+  const content = isSuccess && data.pages.map(page => page.data.map(post => <Post key={post.id} post={post} />));
 
   return (
     <div className="container">
@@ -51,10 +42,10 @@ const InfinitePosts = () => {
         <span>Error: {error.message}</span>
       ) : (
         <>
-          {content}
+          <div>{content}</div>
 
           <div>
-            <button onClick={() => fetchNextPage()} disabled={!hasNextPage || isFetchingNextPage}>
+            <button ref={ref} onClick={() => fetchNextPage()} disabled={!hasNextPage || isFetchingNextPage}>
               {isFetchingNextPage ? 'Loading more...' : hasNextPage ? 'Load Newer' : 'Nothing more to load'}
             </button>
           </div>
