@@ -21,14 +21,15 @@ body {
   gap: 12px;
 }
 
-.container > form > button {
+button {
+  margin: 0 auto;
+  width: 150px;
   cursor: pointer;
   padding: 8px;
   font-size: 15px;
   border: none;
-  background-color: rgb(37, 37, 37);
+  background-color: rgb(181, 208, 215);
   text-transform: uppercase;
-  color: white;
   border-radius: 5px;
 }
 
