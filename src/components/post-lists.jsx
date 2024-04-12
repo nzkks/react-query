@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+
 import { fetchPosts } from '../api/api';
-import Posts from './Posts';
+import Post from './Post';
 import PostForm from './PostForm';
 import Pagination from './Pagination';
 
@@ -37,7 +38,9 @@ const PostLists = () => {
 
       <Pagination data={postData} page={page} setPage={setPage} />
 
-      <Posts data={postData?.data} />
+      {postData?.data.map(post => (
+        <Post key={post.id} post={post} />
+      ))}
     </div>
   );
 };
