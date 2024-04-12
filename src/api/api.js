@@ -5,6 +5,13 @@ const fetchPosts = async page => {
   return postData;
 };
 
+const fetchPostsInfinitely = async ({ pageParam }) => {
+  const response = await fetch(`http://localhost:3000/posts?_sort=-id&_page=${pageParam}&_per_page=5`);
+
+  const postData = await response.json();
+  return postData;
+};
+
 const fetchTags = async () => {
   const response = await fetch('http://localhost:3000/tags');
 
@@ -24,4 +31,4 @@ const addPost = async post => {
   return response.json();
 };
 
-export { fetchPosts, fetchTags, addPost };
+export { fetchPosts, fetchPostsInfinitely, fetchTags, addPost };

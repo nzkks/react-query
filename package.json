@@ -14,7 +14,8 @@
     "@tanstack/react-query-devtools": "^5.29.0",
     "json-server": "^1.0.0-alpha.23",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-intersection-observer": "^9.8.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
